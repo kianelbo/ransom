@@ -8,14 +8,16 @@ Write ordinary Typst; get a ransom letter.
 
 ## Quick start
 
+Start off from the template:
+
 ```sh
-typst init @preview/ransom-note
+typst init @preview/ransom
 ```
 
 or, to use it in an existing document:
 
 ```typ
-#import "@preview/ransom-note:0.1.0": *
+#import "@preview/ransom:0.1.0": *
 
 #show: ransom-note.with(title: "A Polite Demand", seed: 7)
 
@@ -42,7 +44,7 @@ Plain text stays plain. #ransom(size: 2.4em, seed: 3)[Except this.]
 `ransom` also works with no template at all:
 
 ```typ
-#import "@preview/ransom-note:0.1.0": ransom
+#import "@preview/ransom:0.1.0": ransom
 
 #ransom(palette: "noir", tilt: 12deg)[Meet me at midnight.]
 ```
@@ -50,15 +52,6 @@ Plain text stays plain. #ransom(size: 2.4em, seed: 3)[Except this.]
 Typst's strong text (`*...*`) and emphasized text (`_..._`) are cut out as
 single pieces, while the rest is cut letter by letter:
 
-```typ
-#import "@preview/ransom-note:0.1.0": *
-
-#show: ransom-note.with(seed: 3)
-
-This sentence is cut letter by letter.
-*Meet me at midnight.*
-_And this one is italicized._
-```
 
 ## `ransom` options
 

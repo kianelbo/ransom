@@ -10,3 +10,4 @@ __MACOSX/
 *.jpg
 *.jpeg
 *.pdf
+!thumbnail.png

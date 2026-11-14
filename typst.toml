@@ -2,9 +2,10 @@
 name = "ransom"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
-authors = ["kianelbo@examgmailple.com>"]
+authors = ["Kian Eliasi"]
+repository = "https://github.com/kianelbo/ransom"
 license = "MIT"
-description = "Generates cut-out ransom-note letters. Write ordinary Typst, get a ransom letter."
+description = "Generate cut-out letters and ransom notes."
 keywords = ["ransom", "note", "letters", "collage", "cutout", "fun", "typography"]
 categories = ["fun", "text"]
 compiler = "0.13.0"
