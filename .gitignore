@@ -1,0 +1,12 @@
+# General
+.DS_Store
+__MACOSX/
+.AppleDouble
+.LSOverride
+._*
+
+# media files
+*.png
+*.jpg
+*.jpeg
+*.pdf

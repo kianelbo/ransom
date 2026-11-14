@@ -1,0 +1,15 @@
+[package]
+name = "ransom"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["kianelbo@examgmailple.com>"]
+license = "MIT"
+description = "Generates cut-out ransom-note letters. Write ordinary Typst, get a ransom letter."
+keywords = ["ransom", "note", "letters", "collage", "cutout", "fun", "typography"]
+categories = ["fun", "text"]
+compiler = "0.13.0"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
