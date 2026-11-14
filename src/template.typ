@@ -127,6 +127,14 @@
     let letters = size.abs / text-size + size.em
     let word-gap = float(options.named().at("word-gap", default: 40%))
     set text(spacing: letters * word-gap / 0.25 * 100%)
+    let cut-marked = it => ransom(
+      it,
+      ..options,
+      size: size,
+      seed: (seed, "marked", it.body),
+    )
+    show strong: cut-marked
+    show emph: cut-marked
     // Each run of text gets its own seed, derived from its content, so that
     // runs with different words do not share the same random look.
     show document-text: it => ransom(

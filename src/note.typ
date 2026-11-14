@@ -1,7 +1,7 @@
 // The public `ransom` function: text in, cut-out letters out.
 
 #import "rng.typ"
-#import "tile.typ": cutout, roll-look
+#import "tile.typ": cutout, roll-look, document-text
 #import "presets.typ": palettes, faces as face-sets
 
 // ==========================================================================
@@ -21,6 +21,16 @@
   else if it.has("body") { _to-str(it.body) }
   else if it.has("child") { _to-str(it.child) }
   else { "" }
+}
+
+/// Whether content contains a strong or emphasized chunk.
+#let _has-markup-chunk(it) = {
+  if type(it) != content { false }
+  else if it.func() == strong or it.func() == emph { true }
+  else if it.has("children") { it.children.any(_has-markup-chunk) }
+  else if it.has("body") { _has-markup-chunk(it.body) }
+  else if it.has("child") { _has-markup-chunk(it.child) }
+  else { false }
 }
 
 /// Applies the `case` option to one piece of text. `shout` is the random coin
@@ -56,8 +66,8 @@
 /// compile. Change the seed to reshuffle all letters; edit the text and only
 /// the words you touched change.
 ///
-/// - body (str, content): the text to set. Formatting such as bold is
-///   dropped; line and paragraph breaks are kept.
+/// - body (str, content): the text to set. Formatting is dropped except
+///   strong and emphasized chunks, which are cut as one piece.
 /// - seed (int, str): picks one of the endless possible arrangements.
 /// - size (length): the base size of the letters. Relative lengths such as
 ///   `1.5em` follow the surrounding text size.
@@ -135,16 +145,41 @@
     .map(((i, w)) => word-box(w, rng.fork(state, i)))
     .join(word-space)
 
-  // Every paragraph, line and word gets its own state, derived from its
-  // position. That is what keeps an edit from reshuffling everything after it.
-  let root = rng.seed(seed)
-  _to-str(body)
+  let render-plain(s, root) = _to-str(s)
     .split("\n\n")
     .enumerate()
     .map(((p, paragraph)) => paragraph
       .split("\n")
       .enumerate()
-      .map(((l, s)) => line-of(s, rng.fork(rng.fork(root, p), l)))
+      .map(((l, line)) => line-of(line, rng.fork(rng.fork(root, p), l)))
       .join(linebreak()))
     .join(parbreak())
+
+  let whole-piece(s, state) = {
+    let roll = roll-look(state, cfg)
+    cutout(_apply-case(s, case, roll.shout), roll, ..look)
+  }
+
+  if _has-markup-chunk(body) {
+    show strong: it => context {
+      whole-piece(_to-str(it.body), rng.seed((seed, "strong", it.body)))
+    }
+    show emph: it => context {
+      whole-piece(_to-str(it.body), rng.seed((seed, "emph", it.body)))
+    }
+    show document-text: it => context {
+      render-plain(it.text, rng.seed((seed, it.text)))
+    }
+    show smartquote: it => context {
+      render-plain(
+        if it.double { "\"" } else { "'" },
+        rng.seed((seed, "quote", it.double)),
+      )
+    }
+    body
+  } else {
+    // Each paragraph, line, and word has a state derived from its position,
+    // so edits don't reshuffle the rest of the text.
+    render-plain(_to-str(body), rng.seed(seed))
+  }
 }

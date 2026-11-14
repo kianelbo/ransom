@@ -18,4 +18,4 @@ We have taken your printer. If you ever want to see it print again, you must:
 No compromise, no police, no John Wick.
 You have 24 hours.
 
-#align(right)[— The Typst Fan Club]
+#align(right)[*— The Typst Fan Club*]

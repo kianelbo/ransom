@@ -47,6 +47,19 @@ Plain text stays plain. #ransom(size: 2.4em, seed: 3)[Except this.]
 #ransom(palette: "noir", tilt: 12deg)[Meet me at midnight.]
 ```
 
+Typst's strong text (`*...*`) and emphasized text (`_..._`) are cut out as
+single pieces, while the rest is cut letter by letter:
+
+```typ
+#import "@preview/ransom-note:0.1.0": *
+
+#show: ransom-note.with(seed: 3)
+
+This sentence is cut letter by letter.
+*Meet me at midnight.*
+_And this one is italicized._
+```
+
 ## `ransom` options
 
 | Option       | Default        | Meaning                                                           |
@@ -111,9 +124,8 @@ A `scrap` fill can be any Typst paint, including gradients and tilings.
 - **Stable edits.** Each paragraph, line and word gets its own random state
   derived from its position, so fixing a typo does not reshuffle the rest of
   the page. Change `seed` to reshuffle everything on purpose.
-- **Formatting is dropped.** Bold or italic text is cut out like any other:
-  the typeface is chosen per scrap, not taken from the markup. Equations and
-  images are left as they are.
+- **Formatting is dropped.** Strong and emphasized chunks are cut out whole;
+  other formatting is discarded. Equations and images are left as they are.
 - **Long words wrap.** Words longer than ten letters, such as URLs, are split
   into chunks that Typst may break between.
 - **Quotes.** Apostrophes and quotation marks are cut out too, always as
