@@ -61,14 +61,14 @@ single pieces, while the rest is cut letter by letter:
 | `size`       | `1.0em`        | Base letter size. `em` follows the surrounding text.              |
 | `palette`    | `"classic"`    | `"classic"`, `"noir"`, `"candy"`, `"vintage"`, or an array of `scrap`s. |
 | `faces`      | `"embedded"`   | `"embedded"`, `"expressive"`, or an array of `face`s.             |
-| `case`       | `"mixed"`      | `"mixed"`, `"upper"`, `"lower"` or `"keep"`.                      |
-| `tilt`       | `8deg`         | Largest rotation of one letter.                                   |
+| `case`       | `"keep"`       | `"mixed"`, `"upper"`, `"lower"` or `"keep"`.                      |
+| `tilt`       | `6deg`         | Largest rotation of one letter.                                   |
 | `sway`       | `12%`          | Largest vertical wobble, as a share of `size`.                    |
 | `scale`      | `(90%, 120%)`  | Smallest and largest letter size, as shares of `size`.            |
 | `cut-words`  | `10%`          | Share of short words cut out whole, as one headline.              |
 | `backing`    | `25%`          | Share of letters that keep a white paper margin.                  |
 | `ragged`     | `7%`           | How uneven the scissor cuts are.                                  |
-| `shadow`     | `true`         | Whether scraps cast a faint shadow.                               |
+| `shadow`     | `false`        | Whether scraps cast a faint shadow.                               |
 | `tracking`   | `4%`           | Gap between letters, as a share of `size`.                        |
 | `word-gap`   | `80%`          | Gap between words, as a share of `size`.                          |
 
