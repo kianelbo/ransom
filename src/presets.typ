@@ -98,7 +98,7 @@
   // every family it cannot find, so this one is opt-in.
   expressive: (
     face(("Impact", "Libertinus Serif"), weight: "bold"),
-    face(("Arial Black", "DejaVu Sans Mono"), weight: "bold"),
+    face(("Arial", "DejaVu Sans Mono"), weight: "bold"),
     face(("Georgia", "Libertinus Serif"), weight: "bold"),
     face(("Georgia", "Libertinus Serif"), style: "italic"),
     face(("Courier New", "DejaVu Sans Mono"), weight: "bold"),
