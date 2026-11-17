@@ -1,4 +1,4 @@
-#import "@preview/ransom:0.1.0": *
+#import "@preview/ransom:0.1.1": *
 
 #show: ransom-note.with(
   title: "A Polite Demand",

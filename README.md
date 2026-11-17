@@ -17,7 +17,7 @@ typst init @preview/ransom
 or, to use it in an existing document:
 
 ```typ
-#import "@preview/ransom:0.1.0": *
+#import "@preview/ransom:0.1.1": *
 
 #show: ransom-note.with(title: "A Polite Demand", seed: 7)
 
@@ -44,7 +44,7 @@ Plain text stays plain. #ransom(size: 2.4em, seed: 3)[Except this.]
 `ransom` also works with no template at all:
 
 ```typ
-#import "@preview/ransom:0.1.0": ransom
+#import "@preview/ransom:0.1.1": ransom
 
 #ransom(palette: "noir", tilt: 12deg)[Meet me at midnight.]
 ```
@@ -90,7 +90,7 @@ Any other named argument (`palette`, `faces`, `tilt` …) is passed on to `ranso
 ## Your own paper and type
 
 ```typ
-#import "@preview/ransom-note:0.1.0": *
+#import "@preview/ransom-note:0.1.1": *
 
 #show: ransom-note.with(
   palette: (

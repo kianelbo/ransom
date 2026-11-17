@@ -49,7 +49,7 @@
   assert(
     choice in presets,
     message: "unknown " + what + " `" + choice + "`; choose one of: "
-      + presets.keys().join(", ") + " – or pass your own array",
+      + presets.keys().join(", ") + " - or pass your own array",
   )
   presets.at(choice)
 }
@@ -160,26 +160,26 @@
     cutout(_apply-case(s, case, roll.shout), roll, ..look)
   }
 
-  if _has-markup-chunk(body) {
-    show strong: it => context {
-      whole-piece(_to-str(it.body), rng.seed((seed, "strong", it.body)))
-    }
-    show emph: it => context {
-      whole-piece(_to-str(it.body), rng.seed((seed, "emph", it.body)))
-    }
-    show document-text: it => context {
-      render-plain(it.text, rng.seed((seed, it.text)))
-    }
-    show smartquote: it => context {
-      render-plain(
-        if it.double { "\"" } else { "'" },
-        rng.seed((seed, "quote", it.double)),
-      )
-    }
-    body
-  } else {
+  if not _has-markup-chunk(body) {
     // Each paragraph, line, and word has a state derived from its position,
     // so edits don't reshuffle the rest of the text.
-    render-plain(_to-str(body), rng.seed(seed))
+    return render-plain(_to-str(body), rng.seed(seed))
   }
+
+  show strong: it => context {
+    whole-piece(_to-str(it.body), rng.seed((seed, "strong", it.body)))
+  }
+  show emph: it => context {
+    whole-piece(_to-str(it.body), rng.seed((seed, "emph", it.body)))
+  }
+  show document-text: it => context {
+    render-plain(it.text, rng.seed((seed, it.text)))
+  }
+  show smartquote: it => context {
+    render-plain(
+      if it.double { "\"" } else { "'" },
+      rng.seed((seed, "quote", it.double)),
+    )
+  }
+  body
 }

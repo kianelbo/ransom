@@ -1,6 +1,6 @@
 [package]
 name = "ransom"
-version = "0.1.0"
+version = "0.1.1"
 entrypoint = "src/lib.typ"
 authors = ["Kian Eliasi"]
 repository = "https://github.com/kianelbo/ransom"

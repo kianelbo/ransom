@@ -120,49 +120,49 @@
   show heading.where(level: 1): set text(size: 1.6em)
   show heading.where(level: 2): set text(size: 1.3em)
 
-  if cut-text {
-    // Spaces *between* runs (around `*bold*` or `code`) are real space
-    // elements (0.25 em in Libertinus); widen them to match the gap that
-    // `ransom` leaves between the words inside a run.
-    let letters = size.abs / text-size + size.em
-    let word-gap = float(options.named().at("word-gap", default: 40%))
-    set text(spacing: letters * word-gap / 0.25 * 100%)
-    let cut-marked = it => ransom(
-      it,
-      ..options,
-      size: size,
-      seed: (seed, "marked", it.body),
-    )
-    show strong: cut-marked
-    show emph: cut-marked
-    // Each run of text gets its own seed, derived from its content, so that
-    // runs with different words do not share the same random look.
-    show document-text: it => ransom(
-      it.text, ..options, size: size, seed: (seed, it.text),
-    )
-    // Apostrophes and quotes are `smartquote` elements, not text, so they get
-    // a rule of their own. They split a word such as "can't" into three runs;
-    // word joiners keep those from wrapping apart as "can'" / "t". (The joiner
-    // is marked like a tile label so that `document-text` leaves it alone.)
-    let joiner = text(overhang: false, sym.wj)
-    show smartquote: it => {
-      joiner
-      ransom(
-        if it.double { "\"" } else { "'" },
-        ..options, size: size, seed: (seed, "quote"),
-      )
-      joiner
-    }
-    // Inline code is not a plain text element, so it needs a rule of its own.
-    show raw: it => ransom(
-      it.text, ..options, size: size, seed: (seed, it.text),
-    )
-    // List numbers are produced by the numbering function.
-    set enum(numbering: n => ransom(
-      str(n) + ".", ..options, size: size, seed: (seed, "enum", n),
-    ))
-    body
-  } else {
-    body
+  if not cut-text {
+    return body
   }
+
+  // Spaces *between* runs (around `*bold*` or `code`) are real space
+  // elements (0.25 em in Libertinus); widen them to match the gap that
+  // `ransom` leaves between the words inside a run.
+  let letters = size.abs / text-size + size.em
+  let word-gap = float(options.named().at("word-gap", default: 40%))
+  set text(spacing: letters * word-gap / 0.25 * 100%)
+  let cut-marked = it => ransom(
+    it,
+    ..options,
+    size: size,
+    seed: (seed, "marked", it.body),
+  )
+  show strong: cut-marked
+  show emph: cut-marked
+  // Each run of text gets its own seed, derived from its content, so that
+  // runs with different words do not share the same random look.
+  show document-text: it => ransom(
+    it.text, ..options, size: size, seed: (seed, it.text),
+  )
+  // Apostrophes and quotes are `smartquote` elements, not text, so they get
+  // a rule of their own. They split a word such as "can't" into three runs;
+  // word joiners keep those from wrapping apart as "can'" / "t". (The joiner
+  // is marked like a tile label so that `document-text` leaves it alone.)
+  let joiner = text(overhang: false, sym.wj)
+  show smartquote: it => {
+    joiner
+    ransom(
+      if it.double { "\"" } else { "'" },
+      ..options, size: size, seed: (seed, "quote"),
+    )
+    joiner
+  }
+  // Inline code is not a plain text element, so it needs a rule of its own.
+  show raw: it => ransom(
+    it.text, ..options, size: size, seed: (seed, it.text),
+  )
+  // List numbers are produced by the numbering function.
+  set enum(numbering: n => ransom(
+    str(n) + ".", ..options, size: size, seed: (seed, "enum", n),
+  ))
+  body
 }
